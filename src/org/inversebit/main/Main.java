@@ -18,7 +18,6 @@ package org.inversebit.main;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-
 public class Main{
 	
 	private static int nodesPerDimension;
@@ -43,7 +42,7 @@ public class Main{
 			checkArgumentValidity(args);
 		}
 		catch(IllegalArgumentException e){
-			informAboutExceptionAndEndProgram();
+			informAboutExceptionAndEndProgram(e);
 		}
 		
 		parseArguments(args);
@@ -58,13 +57,49 @@ public class Main{
 		}		
 	}
 
-	private static void informAboutExceptionAndEndProgram(){
-		System.out.println(Constants.INFORM_ABOUT_INVALID_ARGUMENT);	
+	private static void informAboutExceptionAndEndProgram(Exception e){
+		System.err.println(e.getMessage());
+		System.err.println(Constants.INFORM_ABOUT_INVALID_ARGUMENT);
 		System.exit(1);
 	}
 
 	private static void checkArgumentValidity(String[] args) throws IllegalArgumentException{
-		//TODO
+		if(args.length == 1){
+			if(args[0].equalsIgnoreCase("-h")){
+				return;
+			}
+			else{
+				throw new IllegalArgumentException(Constants.ERR_INVALID_ARGS_NUM);
+			}
+		}
+		else{
+			if(args.length != 5){
+				throw new IllegalArgumentException(Constants.ERR_INVALID_ARGS_NUM);
+			}
+		}		
+		
+		try
+		{
+			int maxNodes = (int) Math.pow(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+			
+			int torusArg = Integer.parseInt(args[2]);
+			if((torusArg != 0)&&(torusArg != 1)){
+				throw new IllegalArgumentException(Constants.ERR_INVALID_ISTORUS_ARG);
+			}
+
+			checkBounds(Integer.parseInt(args[3]), maxNodes);
+			checkBounds(Integer.parseInt(args[4]), maxNodes);
+		}
+		catch(NumberFormatException e){
+			throw new IllegalArgumentException(Constants.ERR_INVALID_ARG_FORMAT);
+		}
+	}
+
+	private static void checkBounds(int num, int maxBound) throws IllegalArgumentException
+	{
+		if((num < 0)||(num >= maxBound)){
+			throw new IllegalArgumentException(Constants.ERR_NODE_OUTSIDE_BOUNDS);
+		}				
 	}
 
 	private static void parseArguments(String[] args)

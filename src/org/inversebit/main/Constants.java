@@ -23,15 +23,15 @@ public class Constants
 	
 	public static final String INFORM_ABOUT_INVALID_ARGUMENT =
 			"An argument is invalid.\n" +
-			"Check the correct use of the program by executing " + PROGRAM_NAME + " -h";
+			"Check the correct use of the program by executing \"" + PROGRAM_NAME + " -h\"";
 	
 	public static final String PROGRAM_LAUNCH_GUIDELINES =
-			"Launche the program following this guidelines:\n" +
-			PROGRAM_NAME + "<nodes per dimension> <network dimensions> <is torus (0/1)>" +
+			"Launch the program following this guidelines:\n" +
+			PROGRAM_NAME + " <nodes per dimension> <network dimensions> <is torus (0/1)>" +
 			" <origin node number> <destination node number>";
 	
 	public static final String PROGRAM_LAUNCH_EXAMPLE =
-			"Example: " + PROGRAM_NAME + "10 2 0 23 76";
+			"Example: " + PROGRAM_NAME + " 10 2 0 23 76";
 	
 	public static final int TOO_LONG_POSITIVE = 1;
 	public static final int TOO_LONG_NEGATIVE = -1;
@@ -40,4 +40,9 @@ public class Constants
 	public static final String OUTPUT_TRAVELLED_DIST = "The distance travelled is: ";
 	public static final String OUTPUT_RE = "RE is: ";
 	public static final String OUTPUT_PATH = "The nodes in the message path are: ";
+
+	public static final String ERR_INVALID_ARGS_NUM = "Incorrect argument number";
+	public static final String ERR_INVALID_ARG_FORMAT = "Incorrect argument format";
+	public static final String ERR_INVALID_ISTORUS_ARG = "isTorus argument must be 0 or 1";
+	public static final String ERR_NODE_OUTSIDE_BOUNDS = "A node is outside permitted bounds";
 }
