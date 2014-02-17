@@ -180,27 +180,28 @@ public class Main{
 
 	private static void generatePathPositions()
 	{		
+		int[] auxRE = RE.clone();
 		int[] intermediateNodePosition = new int[networkDimensions];
 				
-		for(int i = RE.length - 1; i >= 0; i--){
-			while(RE[i] != 0){
+		for(int i = auxRE.length - 1; i >= 0; i--){
+			while(auxRE[i] != 0){
 				intermediateNodePosition = pathPositions.getLast().clone();
 
-				if(RE[i] > 0){
+				if(auxRE[i] > 0){
 					if(intermediateNodePosition[i] < nodesPerDimension){
 						intermediateNodePosition[i] = intermediateNodePosition[i] + 1;
 					}
 					else{
 						intermediateNodePosition[i] = 0;
 					}
-					RE[i] = RE[i] - 1;
+					auxRE[i] = auxRE[i] - 1;
 				}else{
 					if(intermediateNodePosition[i] > 0){
 						intermediateNodePosition[i] = intermediateNodePosition[i] - 1;					}
 					else{
 						intermediateNodePosition[i] = nodesPerDimension - 1;
 					}
-					RE[i] = RE[i] + 1;
+					auxRE[i] = auxRE[i] + 1;
 				}
 				
 				pathPositions.addLast(intermediateNodePosition);
@@ -229,14 +230,35 @@ public class Main{
 		int node = 0;
 		
 		for(int i = 0; i < nodePosition.length; i++){
-			node += Math.pow(nodePosition[networkDimensions-1-i],i);
+			node += nodePosition[networkDimensions-1-i]*Math.pow(nodesPerDimension,i);
 		}
 		
-		return node;
+		return new Integer(node);
 	}
 
 	private static void printResult()
 	{
-		
+		System.out.println(Constants.OUTPUT_TRAVELLED_DIST + travellingDistance);
+		System.out.print(Constants.OUTPUT_RE);
+		printRE();
+		System.out.println(Constants.OUTPUT_PATH);
+		printPathNodes(); 
+	}
+
+	private static void printRE()
+	{
+		System.out.print("[");
+		for(int i = 0; i < RE.length; i++){
+			System.out.print(RE[i] + ",");
+		}
+		System.out.println("]");
+	}
+
+	private static void printPathNodes()
+	{
+		Iterator<Integer> pathNodesItr = path.iterator();
+		while(pathNodesItr.hasNext()){
+			System.out.print(pathNodesItr.next() + ",");
+		}
 	}
 }

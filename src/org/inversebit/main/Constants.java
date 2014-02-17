@@ -36,5 +36,8 @@ public class Constants
 	public static final int TOO_LONG_POSITIVE = 1;
 	public static final int TOO_LONG_NEGATIVE = -1;
 	public static final int NOT_TOO_LONG = 0;
-			
+
+	public static final String OUTPUT_TRAVELLED_DIST = "The distance travelled is: ";
+	public static final String OUTPUT_RE = "RE is: ";
+	public static final String OUTPUT_PATH = "The nodes in the message path are: ";
 }
