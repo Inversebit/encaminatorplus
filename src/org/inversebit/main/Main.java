@@ -15,8 +15,6 @@
 */
 package org.inversebit.main;
 
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 
@@ -169,7 +167,6 @@ public class Main{
 
 	private static void generatePath()
 	{
-		//TODO Wrap pathing
 		//TODO Transform node position to node number
 		
 		int[] intermediateNodePosition = new int[networkDimensions];
@@ -179,10 +176,19 @@ public class Main{
 				intermediateNodePosition = path.getLast().clone();
 
 				if(RE[i] > 0){
-					intermediateNodePosition[i] = intermediateNodePosition[i] + 1;
+					if(intermediateNodePosition[i] < nodesPerDimension){
+						intermediateNodePosition[i] = intermediateNodePosition[i] + 1;
+					}
+					else{
+						intermediateNodePosition[i] = 0;
+					}
 					RE[i] = RE[i] - 1;
 				}else{
-					intermediateNodePosition[i] = intermediateNodePosition[i] - 1;
+					if(intermediateNodePosition[i] > 0){
+						intermediateNodePosition[i] = intermediateNodePosition[i] - 1;					}
+					else{
+						intermediateNodePosition[i] = nodesPerDimension - 1;
+					}
 					RE[i] = RE[i] + 1;
 				}
 				
@@ -193,6 +199,6 @@ public class Main{
 
 	private static void printResult()
 	{
-
+		
 	}
 }
