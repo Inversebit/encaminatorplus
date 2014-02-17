@@ -91,13 +91,51 @@ public class Main{
 
 	private static void getSystemResult()
 	{
-		initOriginAndDestinationNodePosition();	
+		initOriginAndDestinationNodePosition();
+		calculateRE();
 	}
 
 	private static void initOriginAndDestinationNodePosition()
 	{
 		originNodePosition = getNodePosition(originNode);
 		destinationNodePosition = getNodePosition(destinationNode);
+	}
+
+	private static void calculateRE()
+	{
+		RE = new int[networkDimensions];
+		
+		for(int i = 0; i < RE.length; i++){
+			RE[i] = destinationNodePosition[i] - originNodePosition[i];
+			
+			if(isTorus){				
+				int unnecessarilyLong = isUnnecessarilyLong(RE[i]);
+				
+				if(unnecessarilyLong == Constants.TOO_LONG_POSITIVE){
+					RE[i] = RE[i] - nodesPerDimension;
+				}
+				else{
+					if(unnecessarilyLong == Constants.TOO_LONG_NEGATIVE){
+						RE[i] = RE[i] + nodesPerDimension;
+					}
+				}
+			}
+		}
+	}
+
+	private static int isUnnecessarilyLong(int REinI)
+	{
+		if(REinI > (int)(nodesPerDimension/2)){
+			return Constants.TOO_LONG_POSITIVE;
+		}
+		else{
+			if(REinI < -(int)(nodesPerDimension/2)){
+				return Constants.TOO_LONG_NEGATIVE;
+			}
+			else{
+				return Constants.NOT_TOO_LONG;
+			}
+		}
 	}
 
 	private static int[] getNodePosition(int nodeNumber)

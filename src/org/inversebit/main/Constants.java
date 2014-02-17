@@ -32,5 +32,9 @@ public class Constants
 	
 	public static final String PROGRAM_LAUNCH_EXAMPLE =
 			"Example: " + PROGRAM_NAME + "10 2 0 23 76";
+	
+	public static final int TOO_LONG_POSITIVE = 1;
+	public static final int TOO_LONG_NEGATIVE = -1;
+	public static final int NOT_TOO_LONG = 0;
 			
 }
