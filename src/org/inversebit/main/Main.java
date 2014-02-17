@@ -72,6 +72,25 @@ public class Main{
 
 	private static void initOriginAndDestinationNodePosition()
 	{
+		originNodePosition = getNodePosition(originNode);
+		destinationNodePosition = getNodePosition(destinationNode);
+	}
+
+	private static int[] getNodePosition(int nodeNumber)
+	{
+		int[] positionVector = new int[networkDimensions];
+		
+		for(int i = networkDimensions-1; i >= 0; i--){
+			int divisor = (int) Math.pow(nodesPerDimension, i);
+			positionVector[i] = (int)(nodeNumber/divisor);	
+		}
+		
+		return positionVector;
+	}
+
+	private static void printResult()
+	{
+		// TODO Auto-generated method stub
 		
 	}
 
