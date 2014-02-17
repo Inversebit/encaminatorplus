@@ -67,19 +67,19 @@ public class Main{
 
 	private static void parseArguments(String[] args)
 	{
-		if(args[1].equals("-h")){
+		if(args[0].equals("-h")){
 			requestingHelp = true;
 		}
 		else{
-			nodesPerDimension = Integer.parseInt(args[1]);
-			networkDimensions = Integer.parseInt(args[2]);
+			nodesPerDimension = Integer.parseInt(args[0]);
+			networkDimensions = Integer.parseInt(args[1]);
 			
-			if(Integer.parseInt(args[3]) == 1){
+			if(Integer.parseInt(args[2]) == 1){
 				isTorus = true;
 			}
 			
-			originNode = Integer.parseInt(args[4]);
-			destinationNode = Integer.parseInt(args[5]);		
+			originNode = Integer.parseInt(args[3]);
+			destinationNode = Integer.parseInt(args[4]);		
 		}
 	}
 
@@ -102,11 +102,13 @@ public class Main{
 
 	private static int[] getNodePosition(int nodeNumber)
 	{
+		int numerator = nodeNumber;
 		int[] positionVector = new int[networkDimensions];
 		
-		for(int i = networkDimensions-1; i >= 0; i--){
-			int divisor = (int) Math.pow(nodesPerDimension, i);
-			positionVector[i] = (int)(nodeNumber/divisor);	
+		for(int i = 0; i < positionVector.length; i++){
+			int divisor = (int) Math.pow(nodesPerDimension, networkDimensions - (i + 1));
+			positionVector[i] = (int)(numerator/divisor);
+			numerator = numerator%divisor;
 		}
 		
 		return positionVector;
@@ -114,9 +116,6 @@ public class Main{
 
 	private static void printResult()
 	{
-		// TODO Auto-generated method stub
-		
-	}
 
-	
+	}
 }
