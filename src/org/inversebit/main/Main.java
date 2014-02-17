@@ -15,6 +15,7 @@
 */
 package org.inversebit.main;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 
@@ -31,7 +32,8 @@ public class Main{
 	
 	private static int travellingDistance;
 	private static int[] RE;
-	private static LinkedList<int[]> path;
+	private static LinkedList<int[]> pathPositions;
+	private static LinkedList<Integer> path;
 	
 	private static boolean requestingHelp = false;
 	
@@ -93,6 +95,7 @@ public class Main{
 	{
 		initOriginAndDestinationNodePosition();
 		calculateRE();
+		calculateDistance();
 		calculateMessagePath();
 	}
 
@@ -153,27 +156,35 @@ public class Main{
 		}
 	}
 
+	private static void calculateDistance()
+	{
+		travellingDistance = 0;
+		
+		for(int i = 0; i < RE.length; i++){
+			travellingDistance += Math.abs(RE[i]);
+		}
+	}
+
 	private static void calculateMessagePath()
 	{
 		initPath();
+		generatePathPositions();
 		generatePath();
 	}
 
 	private static void initPath()
 	{
-		path = new LinkedList<int[]>();
-		path.add(originNodePosition);		
+		pathPositions = new LinkedList<int[]>();
+		pathPositions.add(originNodePosition);		
 	}
 
-	private static void generatePath()
-	{
-		//TODO Transform node position to node number
-		
+	private static void generatePathPositions()
+	{		
 		int[] intermediateNodePosition = new int[networkDimensions];
 				
 		for(int i = RE.length - 1; i >= 0; i--){
 			while(RE[i] != 0){
-				intermediateNodePosition = path.getLast().clone();
+				intermediateNodePosition = pathPositions.getLast().clone();
 
 				if(RE[i] > 0){
 					if(intermediateNodePosition[i] < nodesPerDimension){
@@ -192,9 +203,36 @@ public class Main{
 					RE[i] = RE[i] + 1;
 				}
 				
-				path.addLast(intermediateNodePosition);
+				pathPositions.addLast(intermediateNodePosition);
 			}
 		}
+	}
+
+	private static void generatePath()
+	{
+		path = new LinkedList<>();
+		
+		parseAndConvertPositions();
+	}
+
+	private static void parseAndConvertPositions()
+	{
+		Iterator<int[]> pathPositionsItr = pathPositions.iterator();
+		while(pathPositionsItr.hasNext()){
+			int[] nextPosition = pathPositionsItr.next();
+			path.addLast(getNodeNumberInPosition(nextPosition));
+		}
+	}
+
+	private static Integer getNodeNumberInPosition(int[] nodePosition)
+	{
+		int node = 0;
+		
+		for(int i = 0; i < nodePosition.length; i++){
+			node += Math.pow(nodePosition[networkDimensions-1-i],i);
+		}
+		
+		return node;
 	}
 
 	private static void printResult()
