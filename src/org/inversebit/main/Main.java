@@ -15,6 +15,8 @@
 */
 package org.inversebit.main;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 
@@ -93,12 +95,27 @@ public class Main{
 	{
 		initOriginAndDestinationNodePosition();
 		calculateRE();
+		calculateMessagePath();
 	}
 
 	private static void initOriginAndDestinationNodePosition()
 	{
 		originNodePosition = getNodePosition(originNode);
 		destinationNodePosition = getNodePosition(destinationNode);
+	}
+
+	private static int[] getNodePosition(int nodeNumber)
+	{
+		int numerator = nodeNumber;
+		int[] positionVector = new int[networkDimensions];
+		
+		for(int i = 0; i < positionVector.length; i++){
+			int divisor = (int) Math.pow(nodesPerDimension, networkDimensions - (i + 1));
+			positionVector[i] = (int)(numerator/divisor);
+			numerator = numerator%divisor;
+		}
+		
+		return positionVector;
 	}
 
 	private static void calculateRE()
@@ -138,18 +155,40 @@ public class Main{
 		}
 	}
 
-	private static int[] getNodePosition(int nodeNumber)
+	private static void calculateMessagePath()
 	{
-		int numerator = nodeNumber;
-		int[] positionVector = new int[networkDimensions];
+		initPath();
+		generatePath();
+	}
+
+	private static void initPath()
+	{
+		path = new LinkedList<int[]>();
+		path.add(originNodePosition);		
+	}
+
+	private static void generatePath()
+	{
+		//TODO Wrap pathing
+		//TODO Transform node position to node number
 		
-		for(int i = 0; i < positionVector.length; i++){
-			int divisor = (int) Math.pow(nodesPerDimension, networkDimensions - (i + 1));
-			positionVector[i] = (int)(numerator/divisor);
-			numerator = numerator%divisor;
+		int[] intermediateNodePosition = new int[networkDimensions];
+				
+		for(int i = RE.length - 1; i >= 0; i--){
+			while(RE[i] != 0){
+				intermediateNodePosition = path.getLast().clone();
+
+				if(RE[i] > 0){
+					intermediateNodePosition[i] = intermediateNodePosition[i] + 1;
+					RE[i] = RE[i] - 1;
+				}else{
+					intermediateNodePosition[i] = intermediateNodePosition[i] - 1;
+					RE[i] = RE[i] + 1;
+				}
+				
+				path.addLast(intermediateNodePosition);
+			}
 		}
-		
-		return positionVector;
 	}
 
 	private static void printResult()
