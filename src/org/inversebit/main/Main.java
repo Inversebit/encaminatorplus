@@ -188,7 +188,7 @@ public class Main{
 				intermediateNodePosition = pathPositions.getLast().clone();
 
 				if(auxRE[i] > 0){
-					if(intermediateNodePosition[i] < nodesPerDimension){
+					if(intermediateNodePosition[i] < nodesPerDimension-1){
 						intermediateNodePosition[i] = intermediateNodePosition[i] + 1;
 					}
 					else{
@@ -242,7 +242,7 @@ public class Main{
 		System.out.print(Constants.OUTPUT_RE);
 		printRE();
 		System.out.println(Constants.OUTPUT_PATH);
-		printPathNodes(); 
+		printPathNodes();
 	}
 
 	private static void printRE()
