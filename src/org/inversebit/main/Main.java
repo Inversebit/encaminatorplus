@@ -15,7 +15,6 @@
 */
 package org.inversebit.main;
 
-import java.awt.PageAttributes.OriginType;
 import java.util.LinkedList;
 
 
@@ -23,7 +22,7 @@ public class Main{
 	
 	private static int nodesPerDimension;
 	private static int networkDimensions;
-	private static boolean isTorus;
+	private static boolean isTorus = false;
 	private static int originNode;
 	private static int destinationNode;
 	
@@ -34,6 +33,8 @@ public class Main{
 	private static int[] RE;
 	private static LinkedList<int[]> path;
 	
+	private static boolean requestingHelp = false;
+	
 	public static void main(String[] args)
 	{
 		try{
@@ -43,11 +44,16 @@ public class Main{
 			informAboutExceptionAndEndProgram();
 		}
 		
-		parseArguments();
+		parseArguments(args);
 		
-		getSystemResult();
-		
-		printResult();
+		if(requestingHelp){
+			showHelp();
+		}
+		else{
+			getSystemResult();
+			
+			printResult();
+		}		
 	}
 
 	private static void informAboutExceptionAndEndProgram(){
@@ -59,10 +65,28 @@ public class Main{
 		//TODO
 	}
 
-	private static void parseArguments()
+	private static void parseArguments(String[] args)
 	{
-		// TODO Auto-generated method stub
-		
+		if(args[1].equals("-h")){
+			requestingHelp = true;
+		}
+		else{
+			nodesPerDimension = Integer.parseInt(args[1]);
+			networkDimensions = Integer.parseInt(args[2]);
+			
+			if(Integer.parseInt(args[3]) == 1){
+				isTorus = true;
+			}
+			
+			originNode = Integer.parseInt(args[4]);
+			destinationNode = Integer.parseInt(args[5]);		
+		}
+	}
+
+	private static void showHelp()
+	{
+		System.out.println(Constants.PROGRAM_LAUNCH_GUIDELINES);
+		System.out.println(Constants.PROGRAM_LAUNCH_EXAMPLE);
 	}
 
 	private static void getSystemResult()

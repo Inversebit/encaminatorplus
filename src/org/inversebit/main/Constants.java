@@ -18,7 +18,19 @@ package org.inversebit.main;
 
 public class Constants
 {
-	public static final String PROGRAM_NAME = "encaminatorplus";
-	public static final String INFORM_ABOUT_INVALID_ARGUMENT = "An argument is invalid.\n" +
+	public static final String PROGRAM_NAME =
+			"encaminatorplus";
+	
+	public static final String INFORM_ABOUT_INVALID_ARGUMENT =
+			"An argument is invalid.\n" +
 			"Check the correct use of the program by executing " + PROGRAM_NAME + " -h";
+	
+	public static final String PROGRAM_LAUNCH_GUIDELINES =
+			"Launche the program following this guidelines:\n" +
+			PROGRAM_NAME + "<nodes per dimension> <network dimensions> <is torus (0/1)>" +
+			" <origin node number> <destination node number>";
+	
+	public static final String PROGRAM_LAUNCH_EXAMPLE =
+			"Example: " + PROGRAM_NAME + "10 2 0 23 76";
+			
 }
