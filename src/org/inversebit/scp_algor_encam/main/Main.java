@@ -38,11 +38,17 @@ public class Main{
 	
 	public static void main(String[] args)
 	{
+		mainRet(args);
+	}
+	
+	public static int mainRet(String[] args)
+	{
 		try{
 			checkArgumentValidity(args);
 		}
 		catch(IllegalArgumentException e){
-			informAboutExceptionAndEndProgram(e);
+			informAboutException(e);
+			return Constants.ERROR;
 		}
 		
 		parseArguments(args);
@@ -54,13 +60,14 @@ public class Main{
 			getSystemResult();
 			
 			printResult();
-		}		
+		}	
+		
+		return Constants.OK;
 	}
 
-	private static void informAboutExceptionAndEndProgram(Exception e){
+	private static void informAboutException(Exception e){
 		System.err.println(e.getMessage());
 		System.err.println(Constants.INFORM_ABOUT_INVALID_ARGUMENT);
-		System.exit(1);
 	}
 
 	private static void checkArgumentValidity(String[] args) throws IllegalArgumentException{
@@ -276,7 +283,7 @@ public class Main{
 		System.out.println(Constants.OUTPUT_TRAVELLED_DIST + travellingDistance);
 		System.out.print(Constants.OUTPUT_RE);
 		printRE();
-		System.out.println(Constants.OUTPUT_PATH);
+		System.out.print(Constants.OUTPUT_PATH);
 		printPathNodes();
 	}
 
@@ -295,5 +302,6 @@ public class Main{
 		while(pathNodesItr.hasNext()){
 			System.out.print(pathNodesItr.next() + ",");
 		}
+		System.out.println();
 	}
 }
