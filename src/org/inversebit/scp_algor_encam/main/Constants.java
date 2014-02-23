@@ -45,4 +45,7 @@ public class Constants
 	public static final String ERR_INVALID_ARG_FORMAT = "Incorrect argument format";
 	public static final String ERR_INVALID_ISTORUS_ARG = "isTorus argument must be 0 or 1";
 	public static final String ERR_NODE_OUTSIDE_BOUNDS = "A node is outside permitted bounds";
+
+	public static final int ERROR = 1;
+	public static final int OK = 0;
 }
