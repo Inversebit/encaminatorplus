@@ -12,10 +12,10 @@ This program is an exercise from the "Sistemas de cómputo paralelo" course from
 
 Attention
 ---------
-The program has a weird bug/feature. Hypercube networks are simulated as networks with only 2 nodes per dimension, and multiple dimensions. The pathing register is calculated as the substraction from the destination node coordinates minus the origin node coordinates, therefore negative values may appear.
+The program has a weird bug/feature. Hypercube networks are simulated as networks with only 2 nodes per dimension, and multiple dimensions. The pathing register is calculated as the substraction from the destination node coordinates minus the origin node coordinates, therefore negative values may appear.  
 Pathing register values should be always positive in hypercubes. Just think of the negative values as positive ones to fix this bug.
 
 License
 -------
-Code is licensed under the GPLv3 license. Feel free to clone, download or fork it.
+Code is licensed under the GPLv3 license. Feel free to clone, download or fork it.  
 Contribution is welcomed.
